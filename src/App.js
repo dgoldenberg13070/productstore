@@ -1,25 +1,38 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Product from './Product';
+import NavBar from './NavBar'; 
 
 class App extends Component {
+  constructor(){
+    super();
+
+    this.state = {
+      cart: []
+    }
+  }
+
+  addToCart = (product) => {
+
+    this.setState(state => {return {cart: this.state.cart.concat([product])}});
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> andd save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <NavBar></NavBar>
+        <div className="container">
+          <div className="row">
+            <div className="col-12 my-3">
+            <p>There are {this.state.cart.length} items in your cart</p>
+		<ul>
+			{this.state.cart.map(e => <li>{e}</li>)}
+		</ul>
+            </div>
+          </div>
+          <div id="products" className="row view-group">
+            {["hot dog", "ice cream", "root beer", "french fries", "hanburger", "chilli dog"].map(e => <Product e={e} addToCart={this.addToCart}></Product>)}            
+            </div>
+        </div>
       </div>
     );
   }
