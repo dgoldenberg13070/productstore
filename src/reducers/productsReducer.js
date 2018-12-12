@@ -1,12 +1,13 @@
-//Reducers are pure functions - the first parameter is the "state" object
-//which will need to be the same type of object that eventually gets returned.
+import { ADD_PRODUCTS } from '../actions'
 
-//We use reducers because the redeucer is automatically invoked by Redux every time
-//an event is dispatched from a connected component.
-
-function productsReducer(products = []) {
-    console.log('reducer called')
-    return products;
+function productsReducer(products = [], action) {
+    switch (action.type) {
+        case ADD_PRODUCTS: {
+            return products.concat(action.products);
+        }
+        default:
+            return products;;
+    }
 }
 
 export default productsReducer;
